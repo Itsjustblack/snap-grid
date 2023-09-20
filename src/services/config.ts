@@ -19,7 +19,7 @@ export const getImages = async (query: string) => {
 				return { id, alt: alt_description, urls };
 			});
 		} catch (error) {
-			console.error(error.response);
+			console.error(error);
 			return [];
 		}
 	} else {
