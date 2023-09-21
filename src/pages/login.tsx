@@ -1,4 +1,4 @@
-import { useToast } from "@chakra-ui/react";
+import { Spinner, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FirebaseError } from "firebase/app";
 import { FieldValues, useForm } from "react-hook-form";
@@ -7,9 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { auth } from "../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 
 const Login = () => {
 	const toast = useToast();
+	const [loading, setLoading] = useState(false);
 	const schema = z.object({
 		email: z.string().email({ message: "Email is Required" }),
 		password: z.string().min(4, { message: "Minimum of 4 characters" }),
@@ -29,9 +31,11 @@ const Login = () => {
 
 	const onSubmit = async (data: FieldValues) => {
 		const { email, password } = data;
+		setLoading(true);
 		try {
 			const { user } = await signInWithEmailAndPassword(auth, email, password);
-			toast({ title: "User Signed In", description: `Welcome ${user.email}`, status: "success" });
+			if (!toast.isActive(user.email || "")) toast({ title: "Logged In", description: `Welcome ${user.email}`, status: "success", id: user.email || "" });
+			setLoading(false);
 			navigate("/gallery");
 		} catch (error) {
 			if (error instanceof FirebaseError && error.code === "auth/invalid-login-credentials")
@@ -99,7 +103,7 @@ const Login = () => {
 						type="submit"
 						className="bg-[#735355] w-full py-4 text-xl lg:text-[22px] text-white font-bold rounded-2xl mt-14"
 					>
-						Sign In
+						{loading ? <Spinner size={"lg"} /> : "Sign In"}
 					</button>
 				</form>
 				<p className="mt-3 lg:mt-10 text-sm md:text-xl lg:text-2xl text-center">

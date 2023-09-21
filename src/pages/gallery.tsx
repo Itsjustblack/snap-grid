@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Search2Icon } from "@chakra-ui/icons";
+import { useToast } from "@chakra-ui/react";
 import { Input, InputGroup, InputLeftElement, Spinner } from "@chakra-ui/react";
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, KeyboardSensor, MouseSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
@@ -74,6 +75,8 @@ const Gallery = () => {
 		})
 	);
 
+	const toast = useToast();
+
 	return (
 		<div className="relative mt-20 mb-10">
 			<div className="fixed flex justify-center items-center top-0 py-3 w-full bg-[#1A202C] px-5 sm:px-10 z-10">
@@ -95,9 +98,10 @@ const Gallery = () => {
 				<img
 					onClick={() => {
 						signOut(auth);
+						toast({ title: "Logged Out", status: "success" });
 						navigate("/");
 					}}
-					className="w-7 h-7 object-cover ml-5 lg:ml-20"
+					className="w-7 h-7 object-cover ml-5 lg:ml-20 cursor-pointer"
 					src="/assets/signout.svg"
 				/>
 			</div>
