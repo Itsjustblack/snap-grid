@@ -8,6 +8,14 @@
 	font-family: "Syne", sans-serif;
 }
 
+img {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
 input:active,
 input:focus {
 	outline: 0;
