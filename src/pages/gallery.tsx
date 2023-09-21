@@ -98,7 +98,7 @@ const Gallery = () => {
 						navigate("/");
 					}}
 					className="w-7 h-7 object-cover ml-5 lg:ml-20"
-					src="/src/assets/signout.svg"
+					src="/assets/signout.svg"
 				/>
 			</div>
 			<div className="pt-10 px-5 sm:px-10 z-0">
