@@ -43,14 +43,14 @@ const SignUp = () => {
 			});
 	};
 	return (
-		<div className="lg:grid grid-cols-2 lg:h-screen lg:overflow-hidden">
+		<div className="lg:grid grid-cols-2 h-screen lg:overflow-hidden">
 			<div className="w-full h-full hidden lg:block">
 				<LazyLoadImage
 					src="/assets/loginBg.png"
 					className="w-full h-full object-cover"
 				/>
 			</div>
-			<div className="bg-white flex flex-col justify-center text-black px-10 md:px-20 h-full max-w-[425px]:h-screen pt-10 text-center lg:text-left lg:px-12">
+			<div className="bg-white flex flex-col justify-center text-black px-10 md:px-20 h-screen pt-10 text-center lg:text-left lg:px-12">
 				<h1 className="text-[36px] lg:text-[40px] xl:text-[54px] font-semibold">Welcome to SnapGrid</h1>
 				<div className="flex items-center justify-center gap-x-3">
 					<p className="lg:text-lg xl:text-xl text-[#00000099] font-inter">Create an Account</p>
