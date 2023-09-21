@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Search2Icon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement, Spinner } from "@chakra-ui/react";
-import { DndContext, DragEndEvent, KeyboardSensor, PointerSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, KeyboardSensor, PointerSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import SortableImage from "../components/SortableImage";
 import { useImages } from "../hooks/useImages";
+import Overlay from "../components/Overlay";
 
 interface IPhoto {
 	id: string;
@@ -20,15 +22,24 @@ const Gallery = () => {
 	const [searchValue, setSearchValue] = useState("");
 	const { data, isLoading } = useImages(searchValue);
 	const [items, setItems] = useState<IPhoto[]>([]);
+	const [isDragging, setIsDragging] = useState(false);
+	const [activeId, setActiveId] = useState<any | null>(null);
 	const tags = ["Earth", "Earth", "Rest", "Food", "Street", "Earth", "Street"];
 
 	useEffect(() => {
 		if (data) setItems(data);
+		console.log(data);
 	}, [data]);
 
 	const onSubmit = (data: FieldValues) => {
 		setSearchValue(data.search);
-	};	
+	};
+
+	const OnDragStart = (event: DragStartEvent) => {
+		const { active } = event;
+		setIsDragging(true);
+		setActiveId(active.id);
+	};
 
 	const OnDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
@@ -38,10 +49,17 @@ const Gallery = () => {
 			const newIndex = items.findIndex((item) => item?.id === over?.id);
 			return arrayMove(items, oldIndex, newIndex);
 		});
+		setIsDragging(false);
+		setActiveId(null);
 	};
 
 	const sensors = useSensors(
-		useSensor(TouchSensor),
+		useSensor(TouchSensor, {
+			activationConstraint: {
+				delay: 350,
+				tolerance: 4,
+			},
+		}),
 		useSensor(PointerSensor),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
@@ -83,7 +101,9 @@ const Gallery = () => {
 						<DndContext
 							sensors={sensors}
 							collisionDetection={closestCenter}
+							onDragStart={OnDragStart}
 							onDragEnd={OnDragEnd}
+							modifiers={[restrictToWindowEdges]}
 						>
 							<SortableContext
 								items={items}
@@ -99,6 +119,7 @@ const Gallery = () => {
 									/>
 								))}
 							</SortableContext>
+							<DragOverlay dropAnimation={{ duration: 500, easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)" }}>{isDragging ? <Overlay src={items?.find((a) => a.id === activeId)?.url} /> : null}</DragOverlay>
 						</DndContext>
 					</div>
 				)}

@@ -4,7 +4,7 @@ import axios from "axios";
 const axiosInstance = axios.create({
 	baseURL: "https://api.unsplash.com",
 	params: {
-		client_id: import.meta.env.VITE_UNSPLASH_ACCESS_KEY /* import.meta.env.VITE_UNSPLASH_ACCESS_KEY */,
+		client_id: "NmBBN0lzehUBxdSflSWfAIfBx63LRYoYU_VtWkPa9e4" /* import.meta.env.VITE_UNSPLASH_ACCESS_KEY */,
 		page: 10,
 		per_page: 20,
 	},
