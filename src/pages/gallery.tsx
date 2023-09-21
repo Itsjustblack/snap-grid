@@ -4,14 +4,14 @@ import { Input, InputGroup, InputLeftElement, Spinner } from "@chakra-ui/react";
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, KeyboardSensor, MouseSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Overlay from "../components/Overlay";
 import SortableImage from "../components/SortableImage";
-import { useImages } from "../hooks/useImages";
-import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { useImages } from "../hooks/useImages";
 
 interface IPhoto {
 	id: string;
@@ -27,7 +27,7 @@ const Gallery = () => {
 	const [items, setItems] = useState<IPhoto[]>([]);
 	const [isDragging, setIsDragging] = useState(false);
 	const [activeId, setActiveId] = useState<any | null>(null);
-	const tags = ["Earth", "Earth", "Rest", "Food", "Street", "Earth", "Street"];
+	const tags = ["Earth", "Land", "China", "Dog", "House", "Earth", "Dod", "Vehicle", "Space", "Land"];
 
 	const navigate = useNavigate();
 
@@ -113,14 +113,14 @@ const Gallery = () => {
 						/>
 					</div>
 				) : (
-					<div className="relative w-full grid grid-cols-3 lg:grid-cols-4 gap-5">
+					<div className="relative w-full grid grid-cols-3 lg:grid-cols-4 gap-10">
 						<DndContext
 							sensors={sensors}
 							collisionDetection={closestCenter}
 							onDragStart={OnDragStart}
 							onDragEnd={OnDragEnd}
 							modifiers={[restrictToWindowEdges]}
-							// autoScroll
+							autoScroll
 						>
 							<SortableContext
 								items={items}

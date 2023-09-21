@@ -14,7 +14,7 @@ export const getImages = async (query: string) => {
 	if (query === "") {
 		try {
 			const res = await axiosInstance.get("/photos");
-			return res.data.map((item: any) => {
+			return res.data.slice(0, 10).map((item: any) => {
 				const { id, alt_description, urls } = item;
 				return { id, alt: alt_description, url: urls.regular };
 			});

@@ -24,7 +24,7 @@ const SortableImage: FC<Props> = ({ id, src, alt, tag }) => {
 			style={style}
 			{...attributes}
 			{...listeners}
-			className="relative flex flex-col items-center overflow-hidden w-[27vw] h-[30vw] md:w-full md:h-[300px] rounded-lg justify-self-center touch-none"
+			className="relative flex flex-col items-center overflow-hidden w-[27vw] h-[30vw] md:w-full md:h-[300px] rounded-lg justify-self-center bg-blue-800"
 		>
 			<Image
 				zIndex={0}
