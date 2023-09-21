@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Syne&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -18,5 +18,6 @@ img {
 
 input:active,
 input:focus {
-	outline: 0;
+	outline: none;
+	background: transparent;
 }

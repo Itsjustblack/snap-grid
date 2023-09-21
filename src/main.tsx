@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
+import AuthProvider from "./components/AuthProvider";
 
 const queryClient = new QueryClient();
 
@@ -34,8 +35,13 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
-			<ChakraProvider theme={theme}>
-				<RouterProvider router={router} />
+			<ChakraProvider
+				toastOptions={{ defaultOptions: { position: "top-right", duration: 3000, isClosable: true } }}
+				theme={theme}
+			>
+				<AuthProvider>
+					<RouterProvider router={router} />
+				</AuthProvider>
 			</ChakraProvider>
 			<ReactQueryDevtools />
 		</QueryClientProvider>

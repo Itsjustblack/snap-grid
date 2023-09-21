@@ -9,6 +9,9 @@ import { FieldValues, useForm } from "react-hook-form";
 import Overlay from "../components/Overlay";
 import SortableImage from "../components/SortableImage";
 import { useImages } from "../hooks/useImages";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 interface IPhoto {
 	id: string;
@@ -26,9 +29,10 @@ const Gallery = () => {
 	const [activeId, setActiveId] = useState<any | null>(null);
 	const tags = ["Earth", "Earth", "Rest", "Food", "Street", "Earth", "Street"];
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (data) setItems(data);
-		console.log(data);
 	}, [data]);
 
 	const onSubmit = (data: FieldValues) => {
@@ -84,10 +88,18 @@ const Gallery = () => {
 							borderRadius={20}
 							variant="filled"
 							{...register("search")}
-							placeholder="Search Something..."
+							placeholder="Search Anything..."
 						/>
 					</InputGroup>
 				</form>
+				<img
+					onClick={() => {
+						signOut(auth);
+						navigate("/login");
+					}}
+					className="w-7 h-7 object-cover ml-5 lg:ml-20"
+					src="/src/assets/signout.svg"
+				/>
 			</div>
 			<div className="pt-10 px-5 sm:px-10 z-0">
 				{isLoading ? (
