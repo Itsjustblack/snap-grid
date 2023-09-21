@@ -101,7 +101,7 @@ const Gallery = () => {
 					src="/assets/signout.svg"
 				/>
 			</div>
-			<div className="pt-10 px-5 sm:px-10 z-0">
+			<div className="pt-10 px-5 sm:px-10 z-0 h-full overflow-y-auto">
 				{isLoading ? (
 					<div className="flex w-full justify-center items-center h-[300px]">
 						<Spinner
@@ -113,14 +113,14 @@ const Gallery = () => {
 						/>
 					</div>
 				) : (
-					<div className="w-full h-full overflow-y-auto grid grid-cols-3 lg:grid-cols-4 gap-5">
+					<div className="relative w-full grid grid-cols-3 lg:grid-cols-4 gap-5">
 						<DndContext
 							sensors={sensors}
 							collisionDetection={closestCenter}
 							onDragStart={OnDragStart}
 							onDragEnd={OnDragEnd}
 							modifiers={[restrictToWindowEdges]}
-							autoScroll
+							// autoScroll
 						>
 							<SortableContext
 								items={items}

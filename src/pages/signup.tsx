@@ -46,7 +46,7 @@ const SignUp = () => {
 		<div className="lg:grid grid-cols-2 lg:h-screen lg:overflow-hidden">
 			<div className="w-full h-full hidden lg:block">
 				<LazyLoadImage
-					src="/src/assets/loginBg.png"
+					src="/assets/loginBg.png"
 					className="w-full h-full object-cover"
 				/>
 			</div>
