@@ -56,11 +56,15 @@ const Gallery = () => {
 	const sensors = useSensors(
 		useSensor(TouchSensor, {
 			activationConstraint: {
-				delay: 250,
-				tolerance: 4,
+				delay: 150,
+				tolerance: 8,
 			},
 		}),
-		useSensor(MouseSensor),
+		useSensor(MouseSensor, {
+			activationConstraint: {
+				distance: 8,
+			},
+		}),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
 		})
@@ -97,13 +101,14 @@ const Gallery = () => {
 						/>
 					</div>
 				) : (
-					<div className="w-full h-screen grid grid-cols-3 lg:grid-cols-4 gap-5">
+					<div className="w-full h-full overflow-y-auto grid grid-cols-3 lg:grid-cols-4 gap-5">
 						<DndContext
 							sensors={sensors}
 							collisionDetection={closestCenter}
 							onDragStart={OnDragStart}
 							onDragEnd={OnDragEnd}
 							modifiers={[restrictToWindowEdges]}
+							autoScroll
 						>
 							<SortableContext
 								items={items}
