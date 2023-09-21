@@ -28,7 +28,7 @@ const Gallery = () => {
 
 	const onSubmit = (data: FieldValues) => {
 		setSearchValue(data.search);
-	};
+	};	
 
 	const OnDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
