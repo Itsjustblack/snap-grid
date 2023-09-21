@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Search2Icon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement, Spinner } from "@chakra-ui/react";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, KeyboardSensor, PointerSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, KeyboardSensor, MouseSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import Overlay from "../components/Overlay";
 import SortableImage from "../components/SortableImage";
 import { useImages } from "../hooks/useImages";
-import Overlay from "../components/Overlay";
 
 interface IPhoto {
 	id: string;
@@ -56,11 +56,11 @@ const Gallery = () => {
 	const sensors = useSensors(
 		useSensor(TouchSensor, {
 			activationConstraint: {
-				delay: 350,
+				delay: 250,
 				tolerance: 4,
 			},
 		}),
-		useSensor(PointerSensor),
+		useSensor(MouseSensor),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
 		})
