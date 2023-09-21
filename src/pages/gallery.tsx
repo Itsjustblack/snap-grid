@@ -95,7 +95,7 @@ const Gallery = () => {
 				<img
 					onClick={() => {
 						signOut(auth);
-						navigate("/login");
+						navigate("/");
 					}}
 					className="w-7 h-7 object-cover ml-5 lg:ml-20"
 					src="/src/assets/signout.svg"

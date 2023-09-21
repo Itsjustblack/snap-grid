@@ -32,7 +32,7 @@ const SignUp = () => {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(() => {
 				toast({ title: "Account Created", status: "success" });
-				navigate("/login");
+				navigate("/");
 			})
 			.catch((error) => {
 				if (error instanceof FirebaseError && error.code === "auth/email-already-in-use")
@@ -106,7 +106,7 @@ const SignUp = () => {
 				<p className="mt-3 lg:mt-10 text-sm md:text-xl lg:text-2xl text-center">
 					Already have an account?{" "}
 					<Link
-						to="/login"
+						to="/"
 						className="font-semibold text-[#735355]"
 					>
 						sign in
